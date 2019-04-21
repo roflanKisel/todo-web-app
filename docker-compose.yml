@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  web-api:
+    build: ./web-api
+    ports:
+    - "8080:8080"
+  web:
+    build: ./web
+    ports:
+    - "3000:3000"
+  logger:
+    build: ./logger
+    ports:
+    - "1337:1337"

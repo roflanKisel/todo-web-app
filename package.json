@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "cd db; npm run start",
+    "dev": "./startup.sh",
     "seed": "cd db; npm run seed",
     "web": "cd web; npm run dev",
     "web:api": "cd web-api; npm run start"
