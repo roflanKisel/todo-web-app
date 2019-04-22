@@ -2,10 +2,11 @@
   "name": "db",
   "version": "1.0.0",
   "scripts": {
-    "seed": "sequelize db:migrate && sequelize db:seed:all"
+    "migrate": "sequelize db:migrate"
   },
   "license": "MIT",
   "dependencies": {
+    "pg": "^7.10.0",
     "sequelize": "^5.7.0",
     "sequelize-cli": "^5.4.0"
   }

@@ -1,14 +1,21 @@
 version: '3.1'
 
+volumes:
+  pg_vol:
+
 services:
-  web-api:
-    build: ./web-api
+  db:
+    image: postgres:11.2-alpine
+    volumes:
+      - pg_vol:/var/lib/postgresql/data
+    expose:
+    - "5432"
     ports:
-    - "8080:8080"
-  web:
-    build: ./web
-    ports:
-    - "3000:3000"
+    - "5432:5432"
+    environment:
+      POSTGRES_DB: todo_web
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
   logger:
     build: ./logger
     ports:
