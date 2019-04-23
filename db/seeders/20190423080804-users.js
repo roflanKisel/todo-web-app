@@ -7,7 +7,7 @@ module.exports = {
       ...user, password: models.User.generateHash(user.password),
     }));
 
-    return queryInterface.bulkInsert('Users', protectedUsers, {});
+    return queryInterface.bulkInsert('users', protectedUsers, {});
   },
-  down: (queryInterface) => queryInterface.bulkDelete('Users', null, {}),
+  down: (queryInterface) => queryInterface.bulkDelete('users', null, {}),
 };

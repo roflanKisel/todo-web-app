@@ -6,6 +6,7 @@ module.exports = {
     password: 'password',
     database: 'todo_web',
     dialect: 'postgres',
+    quoteIdentifiers: false,
   },
   production: {
     host: process.env.POSTGRES_HOST,
@@ -14,5 +15,6 @@ module.exports = {
     password: process.env.POSTGRES_PASSWORD,
     database: 'todo_web',
     dialect: 'postgres',
+    quoteIdentifiers: false,
   },
 };

@@ -480,13 +480,9 @@ d@1:
   dependencies:
     es5-ext "^0.10.9"
 
-"db@file:../db":
-  version "1.0.0"
-  dependencies:
-    bcrypt "^3.0.6"
-    pg "^7.10.0"
-    sequelize "^5.7.0"
-    sequelize-cli "^5.4.0"
+"db@link:../db":
+  version "0.0.0"
+  uid ""
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
