@@ -6,7 +6,8 @@
     "dev": "./startup.sh",
     "seed": "cd db; npm run migrate && npm run seed",
     "web": "cd web; npm run dev",
-    "web:api": "cd web-api; npm run start"
+    "web:api": "cd web-api; npm run start",
+    "lint:db": "eslint ./db --ext .js"
   },
   "repository": "https://github.com/roflanKisel/todo-web-app",
   "author": "Alexander Kiseliov <kiselev20060@gmail.com>",
