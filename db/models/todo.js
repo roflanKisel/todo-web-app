@@ -6,10 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       validate: {notEmpty: true},
     },
     description: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
   }, {});
 
   Todo.associate = ({User}) => {
-    Todo.belongsTo(User);
+    Todo.belongsTo(User, {as: 'user'});
   };
 
   return Todo;

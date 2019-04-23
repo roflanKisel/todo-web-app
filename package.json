@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "./startup.sh",
-    "migrate": "cd db; npm run migrate",
+    "seed": "cd db; npm run migrate && npm run seed",
     "web": "cd web; npm run dev",
     "web:api": "cd web-api; npm run start"
   },
