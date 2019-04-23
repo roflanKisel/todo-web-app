@@ -6,7 +6,7 @@ const {collectInfo} = require('./utils');
 const app = express();
 const port = process.env.PORT || 1337;
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 const handleError = (req, __res, next) => {
   console.error(req.logInfo);
