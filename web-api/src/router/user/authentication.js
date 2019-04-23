@@ -2,6 +2,7 @@ const express = require('express');
 const {User} = require('db/models');
 
 const log = require('../../utils/log');
+const jwt = require('../../utils/jwt');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.post('/authenticate', async (req, res) => {
     const isPasswordValid = user.validatePassword(password);
 
     return isPasswordValid
-      ? res.status(200).json({userData: user.toJSON()})
+      ? res.status(200).json({user: user.toJSON(), token: jwt.sign(user.toJSON())})
       : res.status(400).json({message: 'Invalid password'});
   } catch (err) {
     log.error('Unexpected error');

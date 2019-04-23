@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     const fields = {...this.get()};
 
     delete fields.password;
+    delete fields.createdAt;
+    delete fields.updatedAt;
+
     return fields;
   };
 

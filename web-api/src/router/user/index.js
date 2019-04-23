@@ -2,6 +2,7 @@ const express = require('express');
 const {User} = require('db/models');
 
 const log = require('../../utils/log');
+const jwt = require('../../utils/jwt');
 const authentication = require('./authentication');
 
 const router = express.Router();
@@ -14,13 +15,9 @@ router.get('/:id', async (req, res) => {
   try {
     const user = await User.findOne({where: {id}});
 
-    if (!user) {
-      return res.status(400).json({
-        message: `User with id ${id} does not exist`,
-      });
-    }
-
-    return res.status(200).json({userData: user.toJSON()});
+    return user
+      ? res.status(200).json({userData: user.toJSON()})
+      : res.status(400).json({message: `User with id ${id} does not exist`});
   } catch (err) {
     log.error('Unexpected error getting user');
 
@@ -47,7 +44,8 @@ router.post('/create', async (req, res) => {
     const createdUser = await User.create({email, username, password: User.generateHash(password)});
 
     return res.status(200).json({
-      createdUser,
+      user: createdUser.toJSON(),
+      token: jwt.sign(createdUser.toJSON()),
     });
   } catch (err) {
     log.error('Unexpected error creating user');
