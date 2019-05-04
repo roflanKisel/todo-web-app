@@ -6,6 +6,9 @@ const theme = {
     lightGreen: '#84DD63',
     lime: '#CBFF4D',
   },
+  font: {
+    family: 'Roboto',
+  },
 };
 
 export default theme;
