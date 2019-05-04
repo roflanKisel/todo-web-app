@@ -91,6 +91,9 @@ const StyledLabel = styled.label`
 
   left: 16px;
   top: ${({isFocused}) => (isFocused ? '-10px' : '17px')};
+
+  user-select: none;
+  pointer-events: none;
 `;
 
 export default TextField;
