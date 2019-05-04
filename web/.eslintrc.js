@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true
   },
-  extends: ['airbnb', '../.eslintrc.js'],
+  extends: ['../.eslintrc.js', 'airbnb'],
   parserOptions: {
     ecmaFeatures: {jsx: true},
     ecmaVersion: 2018,
@@ -15,5 +15,11 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'lines-between-class-members': 0,
     'react/destructuring-assignment': 0,
+    'arrow-parens': [2, 'always'],
+    'curly': 2,
+    'linebreak-style': ['error', 'unix'],
+    'no-unused-vars': [2, {args: 'all', argsIgnorePattern: '^__', varsIgnorePattern: '^__'}],
+    'no-use-before-define': 0,
+    'object-curly-spacing': [2, 'never'],
   },
 };

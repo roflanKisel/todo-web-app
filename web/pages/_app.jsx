@@ -1,7 +1,9 @@
 import React from 'react';
 import App, {Container} from 'next/app';
 import Head from 'next/head';
-import {createGlobalStyle} from 'styled-components';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
+
+import theme from '../styles/theme';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -32,7 +34,9 @@ export default class MyApp extends App {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
-        <Component {...pageProps} />
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Container>
     );
   }
