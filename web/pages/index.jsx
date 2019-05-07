@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Header from '../components/Header';
-import LoginForm from '../components/LoginForm';
+import TodoEditor from '../components/TodoEditor';
 
 const Home = () => (
   <Container>
     <Header />
-    <LoginForm />
+    <TodoEditor />
   </Container>
 );
 
@@ -16,15 +16,11 @@ const Container = styled.div`
 
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 100%;
+  grid-template-rows: auto 100%;
   grid-row-gap: 16px;
 
   justify-items: center;
-  align-items: center;
+  max-width: 100%;
 `;
-
-// const StyledLoginForm = styled(LoginForm)`
-//   padding-bottom: 80px;
-// `;
 
 export default Home;

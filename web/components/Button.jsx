@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
 import {darken} from 'polished';
 
+import theme from '../styles/theme';
+
 const Button = ({
   color,
   size,
@@ -18,7 +20,7 @@ Button.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   color: PropTypes.oneOf(['primary', 'secondary']),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  type: PropTypes.oneOf(['container', 'outlined']),
+  type: PropTypes.oneOf(['contained', 'outlined']),
 };
 
 Button.defaultProps = {
@@ -57,7 +59,7 @@ const Default = styled.button`
   width: ${({size}) => width[size]};
   height: ${({size}) => height[size]};
 
-  font-family: ${({theme}) => theme.font.family};
+  font-family: ${theme.font.family};
   font-size: ${({size}) => fontSize[size]};
   font-weight: 500;
 
@@ -79,7 +81,7 @@ const Default = styled.button`
   }
 `;
 
-const getContainedStyles = ({color, theme}) => css`
+const getContainedStyles = ({color}) => css`
   color: white;
   border-color: white;
   background-color: ${getColor(theme.colors)[color]};
@@ -89,7 +91,7 @@ const getContainedStyles = ({color, theme}) => css`
   }
 `;
 
-const getOutlinedStyles = ({color, theme}) => css`
+const getOutlinedStyles = ({color}) => css`
   border-color: ${getColor(theme.colors)[color]};
   background-color: white;
 

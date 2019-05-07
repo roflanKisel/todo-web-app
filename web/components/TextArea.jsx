@@ -5,7 +5,8 @@ import {darken} from 'polished';
 
 import theme from '../styles/theme';
 
-const TextField = ({
+const TextArea = ({
+  height,
   isValid,
   onChange,
   placeholder,
@@ -26,7 +27,8 @@ const TextField = ({
 
   return (
     <Container {...props}>
-      <StyledInput
+      <StyledTextArea
+        height={height}
         isValid={isValid}
         onBlur={onInputBlur}
         onChange={onChange}
@@ -39,14 +41,16 @@ const TextField = ({
   );
 };
 
-TextField.propTypes = {
+TextArea.propTypes = {
+  height: PropTypes.number,
   isValid: PropTypes.bool,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   value: PropTypes.string,
 };
 
-TextField.defaultProps = {
+TextArea.defaultProps = {
+  height: 48,
   isValid: true,
   onChange: () => {},
   placeholder: '',
@@ -57,16 +61,16 @@ const Container = styled.div`
   position: relative;
 `;
 
-const leftPadding = 16;
+const padding = 16;
 const borderWidth = 2;
 
 const darkDeepGreen = darken(0.2, theme.colors.deepGreen);
 
-const StyledInput = styled.input`
+const StyledTextArea = styled.textarea`
   min-width: 56px;
   width: min-content;
-  max-width: calc(100% - ${leftPadding}px - ${borderWidth * 2}px);
-  height: 48px;
+  max-width: calc(100% - ${padding * 2}px - ${borderWidth * 2}px);
+  height: ${({height}) => height}px;
 
   border: 2px solid;
   border-color: ${({isValid}) => (isValid ? theme.colors.grey : theme.colors.red)};
@@ -76,7 +80,9 @@ const StyledInput = styled.input`
   font-size: 24px;
   font-weight: normal;
 
-  padding-left: ${leftPadding}px;
+  resize: none;
+
+  padding: ${padding}px ${padding}px 0px;
 
   transition: .3s ease-in-out;
 
@@ -101,11 +107,11 @@ const StyledLabel = styled.label`
 
   color: ${({isFocused}) => (isFocused ? theme.colors.grey : theme.colors.lightGrey)};
 
-  left: ${leftPadding}px;
+  left: ${padding}px;
   top: ${({isFocused}) => (isFocused ? '-10px' : '17px')};
 
   user-select: none;
   pointer-events: none;
 `;
 
-export default TextField;
+export default TextArea;

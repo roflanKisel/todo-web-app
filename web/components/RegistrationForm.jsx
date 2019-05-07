@@ -5,26 +5,29 @@ import Paper from './Paper';
 import FormTitle from './FormTitle';
 import TextField from './TextField';
 import Button from './Button';
-import theme from '../styles/theme';
 
-const LoginForm = (props) => {
+const RegistrationForm = (props) => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
 
   const onChangeEmail = (event) => setEmail(event.target.value);
+  const onChangeUsername = (event) => setUsername(event.target.value);
   const onChangePassword = (event) => setPassword(event.target.value);
+  const onChangeConfirmedPassword = (event) => setConfirmedPassword(event.target.value);
 
   return (
-    <Paper>
+    <Paper title="Sign Up">
       <Container {...props}>
-        <FormTitle>Sign In</FormTitle>
+        <FormTitle>Sign Up</FormTitle>
 
         <TextField value={email} onChange={onChangeEmail} placeholder="E-mail" type="email" />
+        <TextField value={username} onChange={onChangeUsername} placeholder="Username" type="text" />
         <TextField value={password} onChange={onChangePassword} placeholder="Password" type="password" />
+        <TextField value={confirmedPassword} onChange={onChangeConfirmedPassword} placeholder="Confirm Password" type="password" />
 
-        <Link>Click here to create new account</Link>
-
-        <StyledButton size="large" type="contained">Sign In</StyledButton>
+        <StyledButton size="large" type="contained">Next</StyledButton>
       </Container>
     </Paper>
   );
@@ -42,16 +45,4 @@ const StyledButton = styled(Button)`
   margin-top: 20px;
 `;
 
-const Link = styled.a`
-  margin-top: 20px;
-  text-decoration: underline;
-  color: ${theme.colors.grey};
-
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export default LoginForm;
+export default RegistrationForm;

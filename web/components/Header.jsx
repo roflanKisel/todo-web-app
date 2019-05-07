@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import {darken} from 'polished';
 
+import theme from '../styles/theme';
 import Button from './Button';
 
-const Header = () => (
-  <Container>
+const Header = (props) => (
+  <Container {...props}>
     <TitleContainer>
       <Title>Todo Web App</Title>
     </TitleContainer>
@@ -14,10 +15,10 @@ const Header = () => (
 );
 
 const Container = styled.div`
-  position: fixed;
+  max-width: 100%;
   height: 64px;
   width: 100%;
-  background-color: ${({theme}) => theme.colors.grey};
+  background-color: ${theme.colors.grey};
 
   display: flex;
   justify-content: space-between;
@@ -34,7 +35,7 @@ const TitleContainer = styled.div`
   transition: .2s ease;
 
   &:hover {
-    background-color: ${({theme}) => darken(0.05, theme.colors.grey)};
+    background-color: ${darken(0.05, theme.colors.grey)};
     cursor: pointer;
   }
 `;
