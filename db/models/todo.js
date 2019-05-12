@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {notEmpty: true},
     },
     description: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
   }, {});
 
   Todo.associate = ({User}) => {

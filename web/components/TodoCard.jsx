@@ -24,6 +24,7 @@ TodoCard.propTypes = {
 
 const Container = styled.div`
   max-width: 300px;
+  height: max-content;
 `;
 
 const Title = styled.h3`

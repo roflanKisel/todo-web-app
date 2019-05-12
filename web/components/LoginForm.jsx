@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
-import {Link} from '../routes';
+import {Link, Router} from '../routes';
 import Paper from './Paper';
 import FormTitle from './FormTitle';
 import TextField from './TextField';
 import Button from './Button';
 import theme from '../styles/theme';
 import validate from '../services/validate';
+import AuthService from '../services/auth';
+import tokenStorage from '../services/tokenStorage';
+import userStorage from '../services/userStorage';
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState('');
@@ -15,6 +18,8 @@ const LoginForm = (props) => {
 
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onChangeEmail = (event) => {
     setIsEmailValid(validate.email(event.target.value));
@@ -24,6 +29,21 @@ const LoginForm = (props) => {
   const onChangePassword = (event) => {
     setIsPasswordValid(validate.password(event.target.value));
     setPassword(event.target.value);
+  };
+
+  const onClickSignIn = async () => {
+    try {
+      const data = await AuthService.signin({email, password});
+
+      tokenStorage.set(data.token);
+      userStorage.set(data.user);
+
+      Router.push('/');
+    } catch ({response}) {
+      if (response && response.data) {
+        setErrorMessage(response.data.message);
+      }
+    }
   };
 
   return (
@@ -38,7 +58,16 @@ const LoginForm = (props) => {
           <StyledLink>Click here to create new account</StyledLink>
         </Link>
 
-        <StyledButton disabled={!(isEmailValid && isPasswordValid)} size="large" type="contained">Sign In</StyledButton>
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+
+        <StyledButton
+          disabled={!(isEmailValid && isPasswordValid)}
+          onClick={onClickSignIn}
+          size="large"
+          type="contained"
+        >
+          Sign In
+        </StyledButton>
       </Container>
     </Paper>
   );
@@ -57,7 +86,7 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledLink = styled.a`
-  margin-top: 20px;
+  margin: 20px 0px;
   text-decoration: underline;
   color: ${theme.colors.grey};
 
@@ -66,6 +95,14 @@ const StyledLink = styled.a`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 `;
 
 export default LoginForm;

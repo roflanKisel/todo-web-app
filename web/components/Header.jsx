@@ -1,23 +1,43 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {darken} from 'polished';
 
+import userStorage from '../services/userStorage';
 import {Link} from '../routes';
 import theme from '../styles/theme';
 import Button from './Button';
+import {useUser} from '../hooks';
 
-const Header = (props) => (
-  <Container {...props}>
-    <Link route="/">
-      <TitleContainer>
-        <Title>Todo Web App</Title>
-      </TitleContainer>
-    </Link>
-    <Link route="/signin">
-      <StyledButton size="medium">Sign In</StyledButton>
-    </Link>
-  </Container>
-);
+const Header = (props) => {
+  const [user, setUser, removeUser] = useUser();
+
+  useEffect(() => {
+    setUser(userStorage.get());
+  });
+
+  const onSignOut = () => removeUser();
+
+  return (
+    <Container {...props}>
+      <Link route="/">
+        <TitleContainer>
+          <Title>Todo Web App</Title>
+        </TitleContainer>
+      </Link>
+      {user && (
+        <UserInfoContainer>
+          {user.email}
+          <StyledButton onClick={onSignOut} size="medium">Sign Out</StyledButton>
+        </UserInfoContainer>
+      )}
+      {!user && (
+        <Link route="/signin">
+          <StyledButton size="medium">Sign In</StyledButton>
+        </Link>
+      )}
+    </Container>
+  );
+};
 
 const Container = styled.div`
   max-width: 100%;
@@ -50,6 +70,16 @@ const Title = styled.h2`
   font-weight: normal;
   padding: 0px 16px;
   margin: 0;
+`;
+
+const UserInfoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  cursor: default;
 `;
 
 const StyledButton = styled(Button)`

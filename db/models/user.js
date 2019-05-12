@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(Todo, {
       as: 'todo',
       tableName: 'users',
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       sourceKey: 'id',
     });
   };

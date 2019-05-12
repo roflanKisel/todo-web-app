@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
+import {Link, Router} from '../routes';
 import Paper from './Paper';
 import TextArea from './TextArea';
 import TextField from './TextField';
 import FormTitle from './FormTitle';
 import Button from './Button';
+import TodoService from '../services/todo';
 
 const TodoEditor = (props) => {
   const [title, setTitle] = useState('');
@@ -13,6 +15,16 @@ const TodoEditor = (props) => {
 
   const onChangeTitle = (event) => setTitle(event.target.value);
   const onChangeDescription = (event) => setDescription(event.target.value);
+
+  const onSave = async () => {
+    try {
+      await TodoService.createTodo({title, description});
+      Router.push('/');
+    } catch (err) {
+      /* eslint-disable-next-line no-console */
+      console.log(err);
+    }
+  };
 
   return (
     <Paper {...props}>
@@ -23,8 +35,8 @@ const TodoEditor = (props) => {
         <TextArea height={112} onChange={onChangeDescription} placeholder="Description" value={description} />
 
         <ButtonsContainer>
-          <Button size="large" type="outlined">Back</Button>
-          <Button size="large">Save</Button>
+          <Link route="/"><Button size="large" type="outlined">Back</Button></Link>
+          <Button onClick={onSave} size="large">Save</Button>
         </ButtonsContainer>
       </Container>
     </Paper>
