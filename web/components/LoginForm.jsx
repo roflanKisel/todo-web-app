@@ -1,30 +1,44 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
+import {Link} from '../routes';
 import Paper from './Paper';
 import FormTitle from './FormTitle';
 import TextField from './TextField';
 import Button from './Button';
 import theme from '../styles/theme';
+import validate from '../services/validate';
 
 const LoginForm = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onChangeEmail = (event) => setEmail(event.target.value);
-  const onChangePassword = (event) => setPassword(event.target.value);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+  const onChangeEmail = (event) => {
+    setIsEmailValid(validate.email(event.target.value));
+    setEmail(event.target.value);
+  };
+
+  const onChangePassword = (event) => {
+    setIsPasswordValid(validate.password(event.target.value));
+    setPassword(event.target.value);
+  };
 
   return (
     <Paper>
       <Container {...props}>
         <FormTitle>Sign In</FormTitle>
 
-        <TextField value={email} onChange={onChangeEmail} placeholder="E-mail" type="email" />
-        <TextField value={password} onChange={onChangePassword} placeholder="Password" type="password" />
+        <TextField isValid={isEmailValid} value={email} onChange={onChangeEmail} placeholder="E-mail" type="email" />
+        <TextField isValid={isPasswordValid} value={password} onChange={onChangePassword} placeholder="Password" type="password" />
 
-        <Link>Click here to create new account</Link>
+        <Link route="/signup">
+          <StyledLink>Click here to create new account</StyledLink>
+        </Link>
 
-        <StyledButton size="large" type="contained">Sign In</StyledButton>
+        <StyledButton disabled={!(isEmailValid && isPasswordValid)} size="large" type="contained">Sign In</StyledButton>
       </Container>
     </Paper>
   );
@@ -42,7 +56,7 @@ const StyledButton = styled(Button)`
   margin-top: 20px;
 `;
 
-const Link = styled.a`
+const StyledLink = styled.a`
   margin-top: 20px;
   text-decoration: underline;
   color: ${theme.colors.grey};

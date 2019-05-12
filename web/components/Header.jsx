@@ -2,15 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import {darken} from 'polished';
 
+import {Link} from '../routes';
 import theme from '../styles/theme';
 import Button from './Button';
 
 const Header = (props) => (
   <Container {...props}>
-    <TitleContainer>
-      <Title>Todo Web App</Title>
-    </TitleContainer>
-    <StyledButton size="medium">Sign In</StyledButton>
+    <Link route="/">
+      <TitleContainer>
+        <Title>Todo Web App</Title>
+      </TitleContainer>
+    </Link>
+    <Link route="/signin">
+      <StyledButton size="medium">Sign In</StyledButton>
+    </Link>
   </Container>
 );
 

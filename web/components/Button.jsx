@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
-import {darken} from 'polished';
+import {darken, lighten} from 'polished';
 
 import theme from '../styles/theme';
 
 const Button = ({
   color,
+  disabled,
+  onClick,
   size,
   type,
   ...props
 }) => (
-  <Default color={color} size={size} type={type} {...props}>
+  <Default
+    color={color}
+    disabled={disabled}
+    onClick={disabled ? () => {} : onClick}
+    size={size}
+    type={type}
+    {...props}
+  >
     {props.children}
   </Default>
 );
@@ -19,6 +28,8 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   color: PropTypes.oneOf(['primary', 'secondary']),
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   type: PropTypes.oneOf(['contained', 'outlined']),
 };
@@ -26,6 +37,8 @@ Button.propTypes = {
 Button.defaultProps = {
   children: null,
   color: 'primary',
+  disabled: false,
+  onClick: () => {},
   size: 'small',
   type: 'contained',
 };
@@ -54,7 +67,9 @@ const fontSize = {
 };
 
 const Default = styled.button`
-  ${(props) => (props.type === 'outlined' ? getOutlinedStyles(props) : getContainedStyles(props))};
+  ${(props) => (props.type === 'outlined' ? getOutlinedStyles(props) : getContainedStyles(props))}
+
+  ${(props) => props.disabled && getDisabledStyles()}
 
   width: ${({size}) => width[size]};
   height: ${({size}) => height[size]};
@@ -77,7 +92,17 @@ const Default = styled.button`
   }
 
   &:hover {
-    cursor: pointer;
+    cursor: ${({disabled}) => (disabled ? 'default' : 'pointer')};
+  }
+`;
+
+const getDisabledStyles = () => css`
+  color: ${lighten(0.3, theme.colors.lightGrey)};
+  border-color: ${lighten(0.3, theme.colors.lightGrey)};
+  background-color: ${lighten(0.5, theme.colors.lightGrey)};
+
+  &:hover {
+    background-color: ${lighten(0.5, theme.colors.lightGrey)};
   }
 `;
 

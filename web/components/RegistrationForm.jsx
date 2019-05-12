@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import validate from '../services/validate';
 
 import Paper from './Paper';
 import FormTitle from './FormTitle';
@@ -12,22 +13,50 @@ const RegistrationForm = (props) => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
 
-  const onChangeEmail = (event) => setEmail(event.target.value);
-  const onChangeUsername = (event) => setUsername(event.target.value);
-  const onChangePassword = (event) => setPassword(event.target.value);
-  const onChangeConfirmedPassword = (event) => setConfirmedPassword(event.target.value);
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isUsernameValid, setIsUsernameValid] = useState(false);
+  const [arePasswordsEqual, setArePasswordsEqual] = useState(false);
+
+  const onChangeEmail = (event) => {
+    setIsEmailValid(validate.email(event.target.value));
+    setEmail(event.target.value);
+  };
+
+  const onChangeUsername = (event) => {
+    setIsUsernameValid(validate.username(event.target.value));
+    setUsername(event.target.value);
+  };
+
+  const onChangePassword = (event) => {
+    setArePasswordsEqual(
+      event.target.value === confirmedPassword
+      && validate.password(event.target.value),
+    );
+    setPassword(event.target.value);
+  };
+
+  const onChangeConfirmedPassword = (event) => {
+    setArePasswordsEqual(event.target.value === password);
+    setConfirmedPassword(event.target.value);
+  };
 
   return (
     <Paper title="Sign Up">
       <Container {...props}>
         <FormTitle>Sign Up</FormTitle>
 
-        <TextField value={email} onChange={onChangeEmail} placeholder="E-mail" type="email" />
-        <TextField value={username} onChange={onChangeUsername} placeholder="Username" type="text" />
-        <TextField value={password} onChange={onChangePassword} placeholder="Password" type="password" />
-        <TextField value={confirmedPassword} onChange={onChangeConfirmedPassword} placeholder="Confirm Password" type="password" />
+        <TextField isValid={isEmailValid} value={email} onChange={onChangeEmail} placeholder="E-mail" type="email" />
+        <TextField isValid={isUsernameValid} value={username} onChange={onChangeUsername} placeholder="Username" type="text" />
+        <TextField isValid={arePasswordsEqual} value={password} onChange={onChangePassword} placeholder="Password" type="password" />
+        <TextField isValid={arePasswordsEqual} value={confirmedPassword} onChange={onChangeConfirmedPassword} placeholder="Confirm Password" type="password" />
 
-        <StyledButton size="large" type="contained">Next</StyledButton>
+        <StyledButton
+          disabled={!(isEmailValid && isUsernameValid && arePasswordsEqual)}
+          size="large"
+          type="contained"
+        >
+          Next
+        </StyledButton>
       </Container>
     </Paper>
   );
