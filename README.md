@@ -2,14 +2,21 @@
 
 Simple Web App with [Express](https://expressjs.com/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/) and [PostgreSQL](https://www.postgresql.org/)
 
-## Required Tools
+And also:
+  * [styled-components](https://www.styled-components.com/)
+  * [docker](https://www.docker.com/)
+  * [sequelize](https://sequelize.org/)
+
+## Required Tools :hammer:
 * `npm` or `yarn`
 * `docker`
 * `docker-compose`
 
-## Setting up
+## Setting up :wrench:
 
-### Cloning repository
+This article will show you how to setup environment for development
+
+### Cloning repository :cloud:
 
 You need to clone this repository
 
@@ -23,7 +30,7 @@ git clone git@github.com:roflanKisel/todo-web-app.git
 ```
 ---
 
-### Installing packages
+### Installing packages :package:
 
 You need to install packages for `db`, `web-api` and `web`
 
@@ -42,9 +49,9 @@ cd web && yarn
 
 ---
 
-### Starting containers with database and logger
+### Starting containers with database and logger :rocket:
 
-You can easily run containers using simple command
+You can easily run containers with a simple command
 
 #### Using npm
 ```shell
@@ -57,7 +64,7 @@ yarn dev
 
 ---
 
-### Seeding database
+### Seeding database :seedling:
 
 To start using database you need to initialize it and fill it with data
 
@@ -72,9 +79,9 @@ yarn seed
 
 ---
 
-### Starting services for development purposes
+### Starting services for development purposes :briefcase:
 
-Web API server and Web (React App + Server) can be started by this command
+Web API server and Web (React App + Server) can be started by the commands below
 
 #### Using npm
 ```shell
@@ -87,11 +94,11 @@ cd web-api && yarn start
 cd web && yarn dev
 ```
 
-Go to [localhost:3000](http://localhost:3000) in your browser and try it out!
+Go to [localhost:3000](http://localhost:3000) in your browser and try it out! :collision:
 
 ---
 
-### Note
+### Note :notebook:
 
 * `PostgreSQL` - `localhost:5432`
 * `Logger` - `localhost:1337`
