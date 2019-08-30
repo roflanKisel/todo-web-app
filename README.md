@@ -1,5 +1,7 @@
 # Todo Web App
 
+Simple Web App with [Express](https://expressjs.com/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/) and [PostgreSQL](https://www.postgresql.org/)
+
 ## Required Tools
 * `npm` or `yarn`
 * `docker`
@@ -67,9 +69,10 @@ cd web && yarn dev
 ```
 
 ### Note
-* `Postgres` will be hosted on port `5432`
-* `Logger` will be hosted on port `1337`
-* `Web API` server will be hosted on port `8080`
-* `Web` server will be hosted on port `3000`
+
+* `PostgreSQL` - `localhost:5432`
+* `Logger` - `localhost:1337`
+* `Web API` - `localhost:8080`
+* `Web` - `localhost:3000`
 
 Go to [localhost:3000](http://localhost:3000) in your browser and try it out 
