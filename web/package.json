@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/icons": "^3.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "next": "^8.1.0",
     "next-routes": "^1.4.2",
     "polished": "^3.2.0",
