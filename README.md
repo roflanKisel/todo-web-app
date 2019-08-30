@@ -40,6 +40,8 @@ cd web-api && yarn
 cd web && yarn
 ```
 
+---
+
 ### Starting containers with database and logger
 
 You can easily run containers using simple command
@@ -53,6 +55,8 @@ npm run dev
 yarn dev
 ```
 
+---
+
 ### Seeding database
 
 To start using database you need to initialize it and fill it with data
@@ -65,6 +69,8 @@ npm run seed
 ```shell
 yarn seed
 ```
+
+---
 
 ### Starting services for development purposes
 
@@ -81,11 +87,13 @@ cd web-api && yarn start
 cd web && yarn dev
 ```
 
+Go to [localhost:3000](http://localhost:3000) in your browser and try it out!
+
+---
+
 ### Note
 
 * `PostgreSQL` - `localhost:5432`
 * `Logger` - `localhost:1337`
 * `Web API` - `localhost:8080`
 * `Web` - `localhost:3000`
-
-Go to [localhost:3000](http://localhost:3000) in your browser and try it out 
