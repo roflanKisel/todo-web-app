@@ -18,11 +18,11 @@ const TodoCard = ({description, title}) => {
 
   return (
     <Container isCollapsed={isCollapsed}>
-      <Paper onClick={toggleCollapsed}>
+      <TitlePaper onClick={toggleCollapsed}>
         <TitleContainer>
           <Title>{title}</Title>
         </TitleContainer>
-      </Paper>
+      </TitlePaper>
       <PaperContainer isCollapsed={isCollapsed}>
         <Description>
           {description}
@@ -46,16 +46,32 @@ const Container = styled.div`
   height: max-content;
 `;
 
+const TitlePaper = styled(Paper)`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const TitleContainer = styled.div`
   width: 100%;
 `;
 
 const PaperContainer = styled(Paper)`
   transform-origin: center top;
-  transform: ${({isCollapsed}) => (isCollapsed ? 'scaleY(0)' : 'scaleY(1)')};
+  transform: ${({isCollapsed}) => (isCollapsed
+    ? 'matrix3d(1,0,0.00,0,0.00,0,1.00,0.008,0,-1,0,0,0,0,0,1)'
+    : 'matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)'
+  )};
+
+  ${({isCollapsed}) => {
+    if (isCollapsed) {
+      return 'box-shadow: none;';
+    }
+
+    return '';
+  }}
 
   width: 100%;
-
   transition: .3s ease-in-out;
 `;
 

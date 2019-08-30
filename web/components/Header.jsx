@@ -13,7 +13,7 @@ const Header = (props) => {
 
   useEffect(() => {
     setUser(userStorage.get());
-  });
+  }, [setUser]);
 
   const onSignOut = () => removeUser();
 
