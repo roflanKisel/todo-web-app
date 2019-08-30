@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import theme from '../styles/theme';
 
-const FormPaper = ({children}) => (
-  <Container>
+const FormPaper = ({children, ...props}) => (
+  <Container {...props}>
     {children}
   </Container>
 );
@@ -14,7 +14,7 @@ FormPaper.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 };
 
-const padding = 40;
+const padding = 20;
 const margin = 8;
 
 const Container = styled.div`

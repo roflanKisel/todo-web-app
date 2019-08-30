@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {darken} from 'polished';
@@ -15,15 +15,15 @@ const TextArea = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const onInputFocuse = () => {
+  const onInputFocuse = useCallback(() => {
     setIsFocused(true);
-  };
+  }, []);
 
-  const onInputBlur = () => {
+  const onInputBlur = useCallback(() => {
     if (!value) {
       setIsFocused(false);
     }
-  };
+  }, [value]);
 
   return (
     <Container {...props}>

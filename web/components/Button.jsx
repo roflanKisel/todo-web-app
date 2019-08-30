@@ -108,10 +108,11 @@ const getDisabledStyles = () => css`
 
 const getContainedStyles = ({color}) => css`
   color: white;
-  border-color: white;
+  border-color: ${getColor(theme.colors)[color]} !important;
   background-color: ${getColor(theme.colors)[color]};
 
   &:hover {
+    border-color: ${getColor(theme.colors)[color]};
     background-color: ${darken(0.05, getColor(theme.colors)[color])};
   }
 `;

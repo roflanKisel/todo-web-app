@@ -26,7 +26,6 @@ const Header = (props) => {
       </Link>
       {user && (
         <UserInfoContainer>
-          {user.email}
           <StyledButton onClick={onSignOut} size="medium">Sign Out</StyledButton>
         </UserInfoContainer>
       )}

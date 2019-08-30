@@ -26,11 +26,13 @@ const Home = () => {
     }
 
     fetchTodos();
-  }, []);
+  }, [setUser]);
 
   return (
     <Container>
-      {user && todos.map((todo) => <TodoCard title={todo.title} description={todo.description} />)}
+      {user && todos.map((todo) => (
+        <TodoCard key={todo.id} title={todo.title} description={todo.description} />
+      ))}
       {user && (
         <Link route="/todo/create">
           <AddButton>+</AddButton>
@@ -45,6 +47,8 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-content: start;
 
   padding: 0px 24px;
 `;
@@ -53,16 +57,21 @@ const Message = styled.p`
   color: ${theme.colors.grey};
 `;
 
+const addButtonSize = 60;
+
 const AddButton = styled.button`
   position: fixed;
+
+  z-index: 100;
+
   bottom: 16px;
   right: 16px;
 
   background-color: ${theme.colors.grey};
   color: white;
 
-  width: 80px;
-  height: 80px;
+  width: ${addButtonSize}px;
+  height: ${addButtonSize}px;
 
   font-size: 48px;
 
