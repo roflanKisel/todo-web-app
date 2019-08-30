@@ -53,6 +53,19 @@ npm run dev
 yarn dev
 ```
 
+### Seeding database
+
+To start using database you need to initialize it and fill it with data
+
+#### Using npm
+```shell
+npm run seed
+```
+#### Using yarn
+```shell
+yarn seed
+```
+
 ### Starting services for development purposes
 
 Web API server and Web (React App + Server) can be started by this command
