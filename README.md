@@ -7,16 +7,16 @@ And also:
   * [docker](https://www.docker.com/)
   * [sequelize](https://sequelize.org/)
 
-## Required Tools :hammer:
+## :hammer: Required Tools
 * `npm` or `yarn`
 * `docker`
 * `docker-compose`
 
-## Setting up :wrench:
+## :wrench: Setting up
 
 This article will show you how to setup environment for development
 
-### Cloning repository :cloud:
+### :cloud: Cloning repository
 
 You need to clone this repository
 
@@ -30,7 +30,7 @@ git clone git@github.com:roflanKisel/todo-web-app.git
 ```
 ---
 
-### Installing packages :package:
+### :package: Installing packages
 
 You need to install packages for `db`, `web-api` and `web`
 
@@ -49,7 +49,7 @@ cd web && yarn
 
 ---
 
-### Starting containers with database and logger :rocket:
+### :rocket: Starting containers with database and logger
 
 You can easily run containers with a simple command
 
@@ -64,7 +64,7 @@ yarn dev
 
 ---
 
-### Seeding database :seedling:
+### :seedling: Seeding database
 
 To start using database you need to initialize it and fill it with data
 
@@ -79,7 +79,7 @@ yarn seed
 
 ---
 
-### Starting services for development purposes :briefcase:
+### :briefcase: Starting services for development purposes
 
 Web API server and Web (React App + Server) can be started by the commands below
 
@@ -98,7 +98,7 @@ Go to [localhost:3000](http://localhost:3000) in your browser and try it out! :c
 
 ---
 
-### Note :notebook:
+### :notebook: Note
 
 * `PostgreSQL` - `localhost:5432`
 * `Logger` - `localhost:1337`
