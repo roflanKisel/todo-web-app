@@ -84,7 +84,7 @@ const deleteById = async (req, res, next) => {
 
     await todo.destroy();
 
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (err) {
     return next(err);
   }
