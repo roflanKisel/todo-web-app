@@ -1,9 +1,10 @@
 {
   "name": "web-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "watch": "nodemon src/index.js",
     "lint": "eslint . --ext .js"
   },
   "license": "MIT",
@@ -14,7 +15,8 @@
     "cors": "^2.8.5",
     "db": "link:../db",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "logger-client": "link:../logger-client"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

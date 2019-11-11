@@ -1,15 +1,13 @@
 const express = require('express');
 const {User} = require('db/models');
 
-const log = require('../../utils/log');
 const jwt = require('../../utils/jwt');
 const authentication = require('./authentication');
+const {authenticateUser} = require('../../middleware/auth');
 
 const router = express.Router();
 
-router.use(authentication);
-
-router.get('/:id', async (req, res) => {
+const getById = async (req, res, next) => {
   const {id} = req.params;
 
   try {
@@ -19,15 +17,11 @@ router.get('/:id', async (req, res) => {
       ? res.status(200).json({userData: user.toJSON()})
       : res.status(400).json({message: `User with id ${id} does not exist`});
   } catch (err) {
-    log.error('Unexpected error getting user');
-
-    return res.status(500).json({
-      message: 'Something went wrong',
-    });
+    return next(err);
   }
-});
+};
 
-router.post('/create', async (req, res) => {
+const create = async (req, res, next) => {
   const {email, username, password} = req.body;
 
   try {
@@ -48,12 +42,39 @@ router.post('/create', async (req, res) => {
       token: jwt.sign(createdUser.toJSON()),
     });
   } catch (err) {
-    log.error('Unexpected error creating user');
+    return next(err);
+  }
+};
 
-    return res.status(500).json({
-      message: 'Something went wrong',
+const deleteById = async (req, res, next) => {
+  const {decodedUser} = req;
+  const {id} = req.params;
+
+  if (decodedUser.id !== id) {
+    return res.status(400).json({
+      message: 'You don\'t have enough permissions',
     });
   }
-});
+
+  try {
+    const user = await User.findOne({where: {id}});
+
+    if (!user) {
+      return res.status(400).json({
+        message: `User with id ${id} does not exist`,
+      });
+    }
+
+    await user.destroy();
+    return res.status(200);
+  } catch (err) {
+    return next(err);
+  }
+};
+
+router.use(authentication);
+router.get('/:id', authenticateUser, getById);
+router.post('/create', create);
+router.delete('/delete/:id', authenticateUser, deleteById);
 
 module.exports = router;

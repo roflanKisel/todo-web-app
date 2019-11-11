@@ -1,20 +1,17 @@
 const express = require('express');
 const {Todo} = require('db/models');
 
-const {authenticateUser} = require('../../middlewares/auth');
+const {authenticateUser} = require('../../middleware/auth');
 
 const router = express.Router();
 
-router.get('/:id', authenticateUser, async (req, res) => {
+const getById = async (req, res, next) => {
   const {decodedUser} = req;
   const {id} = req.params;
 
   try {
     const todo = await Todo.findOne({
-      where: {
-        id,
-        userId: decodedUser.id,
-      },
+      where: {id, userId: decodedUser.id},
     });
 
     if (!todo) {
@@ -25,13 +22,11 @@ router.get('/:id', authenticateUser, async (req, res) => {
 
     return res.status(200).json({todo});
   } catch (err) {
-    return res.status(500).json({
-      message: 'Something went wrong',
-    });
+    return next(err);
   }
-});
+};
 
-router.get('/', authenticateUser, async (req, res) => {
+const getAll = async (req, res, next) => {
   const {decodedUser} = req;
 
   try {
@@ -43,19 +38,17 @@ router.get('/', authenticateUser, async (req, res) => {
 
     if (!todos) {
       return res.status(400).json({
-        message: `Todos for user(${decodedUser.username}) were not found`,
+        message: `Todos for user ${decodedUser.username} were not found`,
       });
     }
 
     return res.status(200).json({todos});
   } catch (err) {
-    return res.status(500).json({
-      message: 'Something went wrong',
-    });
+    return next(err);
   }
-});
+};
 
-router.post('/create', authenticateUser, async (req, res) => {
+const create = async (req, res, next) => {
   const {decodedUser} = req;
   const {title, description} = req.body;
 
@@ -64,13 +57,11 @@ router.post('/create', authenticateUser, async (req, res) => {
 
     return res.status(200).json({todo});
   } catch (err) {
-    return res.status(500).json({
-      message: 'Something went wrong',
-    });
+    return next(err);
   }
-});
+};
 
-router.delete('/delete/:id', authenticateUser, async (req, res) => {
+const deleteById = async (req, res, next) => {
   const {decodedUser} = req;
   const {title, description} = req.body;
   const {id} = req.params;
@@ -87,7 +78,7 @@ router.delete('/delete/:id', authenticateUser, async (req, res) => {
 
     if (!todo) {
       return res.status(400).json({
-        message: `Todo with id(${id}) was not found`,
+        message: `Todo with id ${id} was not found`,
       });
     }
 
@@ -95,10 +86,13 @@ router.delete('/delete/:id', authenticateUser, async (req, res) => {
 
     return res.status(200);
   } catch (err) {
-    return res.status(500).json({
-      message: 'Something went wrong',
-    });
+    return next(err);
   }
-});
+};
+
+router.get('/', authenticateUser, getAll);
+router.get('/:id', authenticateUser, getById);
+router.post('/create', authenticateUser, create);
+router.delete('/delete/:id', authenticateUser, deleteById);
 
 module.exports = router;

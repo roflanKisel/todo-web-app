@@ -17,4 +17,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/todos', todo);
 app.use('/users', user);
 
+app.use((err, __req, res, __next) => {
+  log.error(err.message);
+
+  return res.status(500).json({
+    message: 'Oops, something went wrong',
+  });
+});
+
 app.listen(port, () => log.info('Web Api is up'));
