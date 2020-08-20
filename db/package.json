@@ -7,7 +7,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "pg": "^7.10.0",
     "sequelize": "^5.7.0",
     "sequelize-cli": "^5.4.0"
